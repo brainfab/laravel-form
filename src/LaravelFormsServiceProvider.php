@@ -13,7 +13,7 @@ use Brainfab\LaravelForm\Validation\ValidatorExtension as LaravelFormValidatorEx
 /**
  * @author Max Kovpak <max_kovpak@hotmail.com>
  */
-class LaravelFormsSerivceProvider extends ServiceProvider
+class LaravelFormsServiceProvider extends ServiceProvider
 {
     public function boot()
     {
