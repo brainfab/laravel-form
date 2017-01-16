@@ -1,6 +1,8 @@
 Use [Symfony Form](http://symfony.com/doc/current/components/form.html) component with Laravel framework
 =====================================
 
+[![Latest Stable Version](https://poser.pugx.org/brainfab/laravel-form/v/stable)](https://packagist.org/packages/brainfab/laravel-form) [![Total Downloads](https://poser.pugx.org/brainfab/laravel-form/downloads)](https://packagist.org/packages/brainfab/laravel-form) [![Latest Unstable Version](https://poser.pugx.org/brainfab/laravel-form/v/unstable)](https://packagist.org/packages/brainfab/laravel-form) [![License](https://poser.pugx.org/brainfab/laravel-form/license)](https://packagist.org/packages/brainfab/laravel-form)
+
 Under construction
 
 Installation
@@ -92,7 +94,7 @@ use Brainfab\LaravelForm\Controller\LaravelForm;
 use App\User;
 use Illuminate\Http\Request;
 
-class IndexController extends Controller
+class UserController extends Controller
 {
     use LaravelForm;
 
