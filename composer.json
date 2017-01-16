@@ -1,0 +1,22 @@
+{
+  "name": "brainfab/laravel-form",
+  "description": "Use Symfony Form component with Laravel framework",
+  "keywords": ["framework", "laravel", "symfony", "form"],
+  "authors": [
+    {
+      "name": "Max Kovpak",
+      "email": "max_kovpak@hotmail.com",
+      "homepage": "http://www.max-kovpak.com"
+    }
+  ],
+  "version": "1.0.0-dev",
+  "license": "MIT",
+  "require": {
+    "php": ">=5.6.4",
+    "laravel/framework": "5.3.*",
+    "symfony/form": "^3.2"
+  },
+  "autoload": {
+    "psr-4": {"Brainfab\\LaravelForm\\": "src"}
+  }
+}
