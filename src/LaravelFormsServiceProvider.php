@@ -19,7 +19,7 @@ class LaravelFormsServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->app->singleton('form.view_compiler', function () {
-            return new FormCompiler();
+            return new FormCompiler(config(sprintf('form.themes.%s', config('form.theme'))));
         });
 
         $this->app->singleton('form.block_compiler', function () {
@@ -35,9 +35,11 @@ class LaravelFormsServiceProvider extends ServiceProvider
                 ->getFormFactory();
         });
 
-        $this->loadViewsFrom(__DIR__ . '/resources/views', 'forms');
+        $this->loadViewsFrom(__DIR__ . '/resources/views', 'form');
 
-        require_once __DIR__ . '/helpers.php';
+        $this->publishes([
+            __DIR__.'/config/form.php' => config_path('form.php'),
+        ]);
 
         $this->bootBladeDirectives();
     }
@@ -68,6 +70,10 @@ class LaravelFormsServiceProvider extends ServiceProvider
         $this->commands([
             FormMake::class,
         ]);
+
+        $this->mergeConfigFrom(
+            __DIR__.'/config/form.php', 'form'
+        );
     }
 
     /**

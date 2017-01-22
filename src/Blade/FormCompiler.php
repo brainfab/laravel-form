@@ -3,6 +3,7 @@
 namespace Brainfab\LaravelForm\Blade;
 
 use Illuminate\Support\HtmlString;
+use Illuminate\View\View;
 use Symfony\Component\Form\AbstractRendererEngine;
 use Symfony\Component\Form\FormView;
 
@@ -11,6 +12,35 @@ use Symfony\Component\Form\FormView;
  */
 class FormCompiler
 {
+    /**
+     * @var View
+     */
+    protected $layoutView;
+
+    /**
+     * @var string
+     */
+    protected $theme;
+
+    /**
+     * FormCompiler constructor.
+     *
+     * @param string $themeLayoutView
+     */
+    public function __construct($themeLayoutView)
+    {
+        $this->setTheme($themeLayoutView);
+    }
+
+    /**
+     * @param string $themeLayoutView
+     */
+    protected function setTheme($themeLayoutView)
+    {
+        $this->layoutView = \View::make('form::form_' . $themeLayoutView . '_layout');
+        //precompile layout blocks
+        $this->layoutView->render();
+    }
 
     /**
      * @param FormView $form
@@ -23,7 +53,7 @@ class FormCompiler
         $cacheKey = $form->vars[AbstractRendererEngine::CACHE_KEY_VAR];
         $variables['widget'] = str_replace('_', '', substr($cacheKey, strlen($form->vars['name']) + 1));
 
-        return $this->render('forms::form_widgets', $form->vars, $variables);
+        return $this->render('form::form_widgets', $form->vars, $variables);
     }
 
     /**
@@ -33,7 +63,7 @@ class FormCompiler
      */
     public function compileFormErrors(FormView $form)
     {
-        return $this->render('forms::form_errors', $form->vars);
+        return $this->render('form::form_errors', $form->vars);
     }
 
     /**
@@ -49,7 +79,7 @@ class FormCompiler
             $variables['label'] = $label;
         }
 
-        return $this->render('forms::form_label', $form->vars, $variables);
+        return $this->render('form::form_label', $form->vars, $variables);
     }
 
     /**
@@ -60,7 +90,7 @@ class FormCompiler
     public function compileFormRow(FormView $form)
     {
         $form->setRendered();
-        return $this->render('forms::form_row', $form->vars);
+        return $this->render('form::form_row', $form->vars);
     }
 
     /**
@@ -70,7 +100,7 @@ class FormCompiler
      */
     public function compileFormRest(FormView $form)
     {
-        return $this->render('forms::form_rest', $form->vars);
+        return $this->render('form::form_rest', $form->vars);
     }
 
     /**
@@ -82,7 +112,7 @@ class FormCompiler
     public function compileForm(FormView $form, array $variables = [])
     {
         $form->setRendered();
-        return $this->render('forms::form', $form->vars, $variables);
+        return $this->render('form::form', $form->vars, $variables);
     }
 
     /**
@@ -93,7 +123,7 @@ class FormCompiler
      */
     public function compileFormStart(FormView $form, $variables = [])
     {
-        return $this->render('forms::form_start', $form->vars, $variables);
+        return $this->render('form::form_start', $form->vars, $variables);
     }
 
     /**
@@ -104,7 +134,7 @@ class FormCompiler
      */
     public function compileFormEnd(FormView $form, array $options = [])
     {
-        return $this->render('forms::form_end', $form->vars, $options);
+        return $this->render('form::form_end', $form->vars, $options);
     }
 
     /**
@@ -113,9 +143,22 @@ class FormCompiler
      * @param array  $mergeData
      *
      * @return HtmlString
+     * @deprecated
      */
     protected function render($view, $data = [], $mergeData = [])
     {
         return new HtmlString(\View::make($view, array_merge($data, $mergeData))->render());
+    }
+
+    /**
+     * Render layout block.
+     *
+     * @param string $name
+     * @param array  $data
+     * @param array  $mergeData
+     */
+    protected function renderBlock($name, array $data = [], array $mergeData = [])
+    {
+        new HtmlString(app('form.block_compiler')->render($name, array_merge($data, $mergeData)));
     }
 }
