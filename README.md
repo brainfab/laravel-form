@@ -10,7 +10,7 @@ Installation
 
 Require this package with composer:
 
-`` composer require brainfab/laravel-dashboard ``
+`` composer require brainfab/laravel-form ``
 
 After updating composer, add the ServiceProvider to the providers array in config/app.php
 
