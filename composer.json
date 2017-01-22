@@ -17,6 +17,9 @@
     "symfony/form": "^3.2"
   },
   "autoload": {
-    "psr-4": {"Brainfab\\LaravelForm\\": "src"}
+    "psr-4": {"Brainfab\\LaravelForm\\": "src"},
+    "files": [
+      "src/helpers.php"
+    ]
   }
 }
