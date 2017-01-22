@@ -1,11 +1,3 @@
-@block('form_widget')
-    @if($compound)
-        @yieldblock('form_widget_compound')
-    @else
-        @yieldblock('form_widget_simple')
-    @endif
-@endblock
-
 @block('widget_attributes')
     id="{{ $id or '' }}" name="{{ $full_name or '' }}"
     @if($disabled) disabled="disabled" @endif
@@ -52,12 +44,7 @@
     @endforeach
 @endblock
 
-@block('form_widget_simple')
-    @php
-        $type = isset($type) ? $type : 'text';
-    @endphp
-    <input type="{{$type}}" @yieldblock('widget_attributes') @if(!empty($value)) value="{{$value}}" @endif />
-@endblock
+
 
 @block('datetime_widget')
     @if($widget == 'single_text')
