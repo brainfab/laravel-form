@@ -38,6 +38,8 @@ class LaravelFormsServiceProvider extends ServiceProvider
         $this->loadViewsFrom(__DIR__ . '/resources/views', 'forms');
 
         require_once __DIR__ . '/helpers.php';
+
+        $this->bootBladeDirectives();
     }
 
     /**
